@@ -1,0 +1,102 @@
+﻿@model List<DetailFormationViewModel>
+@{
+    ViewData["Title"] = "Home Page";
+    //Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+
+<div class="jumbotron text-center">
+    <h1>Avis Formations</h1>
+    <p>Soyez sûr de la formation que vous allez acheter !</p>
+</div>
+<section class="avantages">
+    <div class="row  text-center">
+        <div class="col-md-6 col-lg-3">
+            <span class="fa fa-check fa-3x orange"></span>
+            <h2>Authentiques Avis</h2>
+            <p>Des avis d'élèves bien réels !</p>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <span class="fa fa-glasses fa-3x orange"></span>
+            <h2>Transparence</h2>
+            <p>Rien ne vous est caché</p>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <span class="fa fa-thumbs-up fa-3x orange"></span>
+            <h2>Indépendante</h2>
+            <p>Indépendance des organismes de formation</p>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <span class="fa fa-dollar-sign fa-3x orange"></span>
+            <h2>Gratuit</h2>
+            <p>Tout notre travail gratuit pour vous !</p>
+        </div>
+    </div>
+</section>
+
+<section class="section-badge text-center">
+    <div class="row">
+        <div class="col-md-7 padding30">
+            <h4>Professionnels de la formation, affichez notre badge sur votre site !</h4>
+        </div>
+        <div class="col-md-5">
+            <div class="widget">
+                <div class="widget-top">
+                    Avis élèves 4.8/5 <span class="fa fa-star orange"></span><span class="fa fa-star orange"></span><span class="fa fa-star orange"></span><span class="fa fa-star orange"></span><span class="fa fa-star orange"></span>
+                </div>
+                <div class="widget-bottom">
+                    <small>Avis récoltés par AvisFormations.fr</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<br />
+
+<div class="row text-center justify-content-md-center">
+    @foreach (var formation in Model)
+    {
+        <div class="formation-block col-md-6 col-lg-4">
+            <a asp-controller="Formation"
+               asp-action="DetailsFormation"
+               asp-route-nomSeo="@formation.Formation.NomSeo">@formation.Formation.Nom</a>
+            @if (@formation.NoteMoyenne > 0)
+            {
+        <div>
+            @formation.NoteMoyenne/5
+            @for (int i = 1; i <= formation.NoteMoyenne; i++)
+            {
+                <span class="fa fa-star orange"></span>
+            }
+            <!-- pour la demi étoile-->
+            @if (!((formation.NoteMoyenne % 1) == 0))
+            {
+                <span class="fa fa-star-half orange"></span>
+            }
+        </div>
+            }
+            else
+            {
+                <div>Aucun avis</div>
+            }
+
+            <p>Description de la formation : @formation.Formation.Description</p>
+
+        </div>
+    }
+</div>
+
+
+@section Scripts
+{
+    <!--
+        <script>
+        $(document).ready(function () {
+            alert('script fonctionne');
+        });
+    </script>
+    -->
+}
+
